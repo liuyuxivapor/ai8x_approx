@@ -1,2 +1,2 @@
 #!/bin/sh
-python ./train.py --epochs 1000  --optimizer Adam --lr 0.001 --batch-size 2048 --gpus 0 --deterministic --compress schedule-fft.yaml --model ai85net_fft --dataset fft --param-hist --pr-curves --embedding --device MAX78000 "$@"
+python ./train.py --epochs 1000  --optimizer Adam --lr 0.001 --batch-size 2048 --gpus 0 --deterministic --compress schedule-fft.yaml --model ai84net_fft --dataset fft --param-hist --pr-curves --embedding --device MAX78000 "$@"

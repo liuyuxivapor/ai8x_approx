@@ -3,7 +3,7 @@ import torch.nn as nn
 
 import ai8x
 
-class AI85Net_FFT(nn.Module):
+class AI84Net_FFT(nn.Module):
     def __init__(self, num_samples=2048, bias=False, **kwargs):
         super().__init__()
 
@@ -17,16 +17,16 @@ class AI85Net_FFT(nn.Module):
         x = self.linear3(x)
         return x
 
-def ai85net_fft(pretrained=False, **kwargs):
+def ai84net_fft(pretrained=False, **kwargs):
     """
-    Constructs a AI85Net5 model.
+    Constructs a AI84Net5 model.
     """
     assert not pretrained
-    return AI85Net_FFT(**kwargs)
+    return AI84Net_FFT(**kwargs)
 
 models = [
     {
-        'name': 'ai85net_fft',
+        'name': 'ai84net_fft',
         'min_input': 1,
         'dim': 2,
     },
