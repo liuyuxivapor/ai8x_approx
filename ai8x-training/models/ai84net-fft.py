@@ -4,7 +4,7 @@ import torch.nn as nn
 import ai8x
 
 class AI84Net_FFT(nn.Module):
-    def __init__(self, num_samples=2048, bias=False, **kwargs):
+    def __init__(self, bias=False, **kwargs):
         super().__init__()
 
         self.linear1 = ai8x.FusedSoftwareLinearReLU(1, 4)
