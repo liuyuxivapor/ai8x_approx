@@ -33,8 +33,8 @@ def fft_get_datasets(data, load_train=True, load_test=False):
     (data_dir, args) = data
 
     if load_train:
-        data_path = '/home/vapor/code/AIoT/ai8x-training/data'+'/fft/'+'data.npy'
-        label_path = '/home/vapor/code/AIoT/ai8x-training/data'+'/fft/'+'fft_result.npy'
+        data_path = data_dir+'/fft/'+'data_train.npy'
+        label_path = data_dir+'/fft/'+'label_train.npy'
 
         train_transform = transforms.Compose([
             # transforms.RandomCrop(32, padding=4),

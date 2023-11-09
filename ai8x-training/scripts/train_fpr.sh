@@ -1,2 +1,2 @@
 #!/bin/sh
-python ./train.py --epochs 200 --batch-size 128 --deterministic --optimizer Adam --lr 0.001 --compress schedule-fpr.yaml --model ai85net_fpr --dataset fpr --confusion --param-hist --pr-curves --embedding --device MAX78000 "$@"
+python ./train.py --epochs 200 --batch-size 128 --deterministic --optimizer Adam --lr 0.001 --compress policies/schedule-fpr.yaml --model ai85net_fpr --dataset fpr --confusion --param-hist --pr-curves --embedding --device MAX78000 "$@"

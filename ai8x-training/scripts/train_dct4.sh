@@ -1,0 +1,2 @@
+#!/bin/sh
+python ./train.py --epochs 200 --batch-size 4 --gpus 0 --deterministic --optimizer SGD --lr 0.01 --compress policies/schedule-dct4.yaml --model ai85net_dct4 --dataset dct4 --regression --param-hist --device MAX78000 "$@"

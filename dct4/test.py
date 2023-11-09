@@ -11,8 +11,7 @@ is_gpu = torch.cuda.is_available()
 
 inputs = torch.tensor(np.load("dct4_in.npy"), dtype=torch.float32)
 batch_size = inputs.size(dim=0) # 16
-len = inputs.size(dim=1)        # 512
-inputs = inputs.reshape(batch_size, 1, len)
+len = inputs.size(dim=2)        # 512
 targets = torch.tensor(np.load("dct4_out.npy"), dtype=torch.float32)
 model = ultranet()
 
