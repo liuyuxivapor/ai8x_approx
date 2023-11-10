@@ -1,0 +1,37 @@
+arch: ai85net-dct4
+dataset: dct4
+
+# Define layer parameters in order of the layer sequence
+layers:
+  # ai8x.FusedConv1dBNReLU(1, 8, kernel_size=3, stride=1, padding=1, bias=True, batchnorm='Affine')
+  - data_format: CHW
+    op: Conv1d
+    pad: 1
+    activate: ReLU
+    kernel_size: 3
+    processors: 0x0000000000000001
+    out_offset: 0x2000
+
+  # ai8x.FusedConv1dBNReLU(8, 16, kernel_size=3, stride=1, padding=1, bias=True, batchnorm='Affine')
+  - op: Conv1d
+    pad: 1
+    activate: ReLU
+    kernel_size: 3
+    processors: 0x000000000000000f0
+    out_offset: 0x0000
+
+  # ai8x.FusedConv1dBNReLU(16, 2, kernel_size=3, stride=1, padding=1, bias=True, batchnorm='Affine')
+  - op: Conv1d
+    pad: 1
+    activate: ReLU
+    kernel_size: 3
+    processors: 0x00000000000000002
+    out_offset: 0x2000
+
+  # Flatten & ai8x.Linear(512 * 2, 512)
+  - flatten: True
+    op: Linear
+    processors: 0x00000000000000400
+    out_offset: 0x0000
+
+

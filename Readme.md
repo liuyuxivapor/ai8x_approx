@@ -11,9 +11,8 @@ Approximate computing of at least five certain signal processing such as FFT and
 | Fingerprint recognition | /           | ⚪        | /             | /       | ⚪              |  /
 | FFT                 | ⚪           |          | ⚪             | ⚪       | ⚪              |             |
 | FIR                 | ⚪           |          | ⚪             | ⚪       |                |             |
-| DCT                 | ⚪           |   ⚪     | ⚪             |         |                |             |
+| DCT                 | ⚪           |  2023.11.09-234801      | ⚪             |         |                |             |
 | Linear Interpolate  |             |          |               |         |                |             |
-
 
 ## Ref Links
 

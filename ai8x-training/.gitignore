@@ -6,7 +6,7 @@
 **/build/
 # /data/
 # /latest_log_dir
-# /latest_log_file
+/latest_log_file
 /logs/
 /ninja-python-distributions
 /pip-selfcheck.json
