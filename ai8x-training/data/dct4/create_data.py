@@ -2,17 +2,17 @@ import torch
 import math
 import numpy as np
 
-batch_size = 16
-test_size = 4
+batch = 32
+test_size = 16
 len = 512
 
 def dct4(input_signal):
     
-    batch_size = input_signal.size(dim=0)
+    batch = input_signal.size(dim=0)
     len = input_signal.size(dim=2)
-    output_signal = torch.zeros(batch_size, len)
+    output_signal = torch.zeros(batch, len)
 
-    for i in range(batch_size):
+    for i in range(batch):
         for k in range(len):
             sum_value = 0.0
             for n in range(len):
@@ -21,7 +21,7 @@ def dct4(input_signal):
 
     return output_signal
 
-data_train = torch.randn(batch_size, 1, len, dtype=torch.float32)
+data_train = torch.randn(batch, 1, len, dtype=torch.float32)
 data_test = torch.randn(test_size, 1, len, dtype=torch.float32)
 label_train = dct4(data_train)
 label_test = dct4(data_test)

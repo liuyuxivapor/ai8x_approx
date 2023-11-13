@@ -9,10 +9,10 @@ Approximate computing of at least five certain signal processing such as FFT and
 | **Signal**          | **Pytorch** | **Ai8x** | **CMSIS-DSP** | **DSP** | **Evaluation** | **DVFS(?)** |
 |:-------------------:|:-----------:|:--------:|:-------------:|:-------:|:--------------:|:-----------:|
 | Fingerprint recognition | /           | ⚪        | /             | /       | ⚪              |  /
-| FFT                 | ⚪           |          | ⚪             | ⚪       | ⚪              |             |
+| FFT                 | ⚪           |          | ⚪             | ⚪       |               |             |
 | FIR                 | ⚪           |          | ⚪             | ⚪       |                |             |
-| DCT                 | ⚪           |  2023.11.09-234801      | ⚪             |         |                |             |
-| Linear Interpolate  |             |          |               |         |                |             |
+| DCT                 | ⚪           |  2023.11.09-234801      |              |         |                |             |
+| Cubic Spline  |             |          |               |         |                |             |
 
 ## Ref Links
 
