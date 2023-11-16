@@ -10,7 +10,7 @@ from torch.utils.data import Dataset
 
 class FFTDataset(Dataset):
 
-    def __init__(self, data_file, label_file, transform=None):
+    def __init__(self, data_file,label_file, transform=None):
         self.datas = np.load(data_file)
         self.labels = np.load(label_file)
         self.transform = transform
@@ -18,17 +18,13 @@ class FFTDataset(Dataset):
     def __getitem__(self, index):
         data = self.datas[index]
         label = self.labels[index]
-
-        if self.transform is not None:
-            data = self.transform(data)
-
-        label = np.argmax(label)
+        
         return torch.from_numpy(np.array(data)), torch.from_numpy(np.array(label))
 
     def __len__(self):
         return len(self.datas)
 
-def fft_get_datasets(data, load_train=True, load_test=False):
+def fft_get_datasets(data, load_train=True, load_test=True):
 
     (data_dir, args) = data
 
@@ -37,8 +33,6 @@ def fft_get_datasets(data, load_train=True, load_test=False):
         label_path = data_dir+'/fft/'+'label_train.npy'
 
         train_transform = transforms.Compose([
-            # transforms.RandomCrop(32, padding=4),
-            # transforms.RandomHorizontalFlip(),
             transforms.ToTensor(),
             ai8x.normalize(args=args)
         ])
@@ -48,7 +42,7 @@ def fft_get_datasets(data, load_train=True, load_test=False):
         train_dataset = None
 
     if load_test:
-        data_path = data_dir + '/fft/' + 'img_test.npy'
+        data_path = data_dir + '/fft/' + 'data_test.npy'
         label_path = data_dir + '/fft/' + 'label_test.npy'
 
         test_transform = transforms.Compose([
@@ -59,7 +53,7 @@ def fft_get_datasets(data, load_train=True, load_test=False):
         test_dataset = FFTDataset(data_path, label_path, test_transform)
 
         if args.truncate_testset:
-            test_dataset.data = test_dataset.data[ :1]
+            test_dataset.data = test_dataset.data[:1]
     else:
         test_dataset = None
 
@@ -69,8 +63,8 @@ def fft_get_datasets(data, load_train=True, load_test=False):
 datasets = [
     {
         'name': 'fft',
-        'input': (1, ),
-        'output': (2, ),
+        'input': (64, 1),
+        'output': (128, 1),
         'loader': fft_get_datasets,
     },
 ]

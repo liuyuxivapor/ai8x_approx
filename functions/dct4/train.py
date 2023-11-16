@@ -9,17 +9,17 @@ from ultranet import *
 is_test = False
 is_gpu = torch.cuda.is_available()
 
-inputs = torch.tensor(np.load("dct4_in.npy"), dtype=torch.float32)
-batch_size = inputs.size(dim=0) # 16
-len = inputs.size(dim=2)        # 512
-targets = torch.tensor(np.load("dct4_out.npy"), dtype=torch.float32)
+inputs = torch.tensor(np.load("data_train.npy"), dtype=torch.float32)
+batch_size = inputs.size(dim=0) # 32
+len = inputs.size(dim=2)        # 128
+targets = torch.tensor(np.load("label_train.npy"), dtype=torch.float32)
 model = ultranet()
 
 if is_gpu:
     model.to(device='cuda')
     inputs = inputs.to(device='cuda')
     targets = targets.to(device='cuda')
-    summary(model, input_size=(1, len), device='cuda')
+    # summary(model, input_size=(1, len), device='cuda')
     
 criterion = nn.MSELoss()
 optimizer = torch.optim.SGD(model.parameters(), lr=0.01)

@@ -1,7 +1,9 @@
 import torch
 import torch.nn as nn
-
 import ai8x
+from torchaudio.functional import create_dct
+
+TORCHAUDIO_SQUEEZER = 14
 
 # class AI85Net_DCT4(nn.Module):
 #     def __init__(self, num_channels=1, length=512, bias=False, **kwargs):
@@ -36,14 +38,16 @@ class AI85Net_DCT4(nn.Module):
     def __init__(self, num_channels=1, length=512, **kwargs):
         super().__init__()
     
-        self.conv1bn = ai8x.FusedConv1dBNReLU(1, 8, kernel_size=3, stride=1, padding=1, bias=True, batchnorm='Affine')
+        self.conv1bn = ai8x.FusedConv1dBNReLU(1, 16, kernel_size=3, stride=1, padding=1, bias=True, batchnorm='Affine')
 
-        self.conv2bn = ai8x.FusedConv1dBNReLU(8, 16, kernel_size=3, stride=1, padding=1, bias=True, batchnorm='Affine')
+        self.conv2bn = ai8x.FusedConv1dBNReLU(16, 32, kernel_size=3, stride=1, padding=1, bias=True, batchnorm='Affine')
         
-        self.conv3bn = ai8x.FusedConv1dBNReLU(16, 2, kernel_size=3, stride=1, padding=1, bias=True, batchnorm='Affine')
-        
+        self.conv3bn = ai8x.FusedConv1dBNReLU(32, 64, kernel_size=3, stride=1, padding=1, bias=True, batchnorm='Affine')
+
+        self.conv4bn = ai8x.FusedConv1dBNReLU(64, 2, kernel_size=3, stride=1, padding=1, bias=True, batchnorm='Affine')
+                
         self.flat = nn.Flatten()
-        self.fc = ai8x.Linear(512 * 2, 512)
+        self.fc = ai8x.Linear(128 * 2, 128)
 
         # for m in self.modules():
         #     if isinstance(m, nn.Conv1d):
@@ -54,22 +58,33 @@ class AI85Net_DCT4(nn.Module):
         x = self.conv1bn(x)
         x = self.conv2bn(x)
         x = self.conv3bn(x)
+        x = self.conv4bn(x)
         x = self.fc(self.flat(x))
         # x = self.fc(x)
         
         return x
     
+class AI85Net_DCT4_TORCHAUDIO(nn.Module):
+    def __init__(self, bias=False, **kwargs):
+        super().__init__()
+    
+        self.dct = ai8x.FusedConv1dAbs(128, 128, 1, stride=1, padding=0, bias=False, **kwargs)
+        dct_coefs = create_dct(n_mfcc=128, n_mels=128, norm=None)
+        with torch.no_grad():
+            self.dct.op.weight = nn.Parameter(dct_coefs.transpose(0,1)[0:128,:].unsqueeze(2)/TORCHAUDIO_SQUEEZER, requires_grad=False)
+
+    def forward(self, x):
+        return self.dct(x)
+    
 def ai85net_dct4(pretrained=False, **kwargs):
-    """
-    Constructs a AI85Net5 model.
-    """
     assert not pretrained
-    return AI85Net_DCT4(**kwargs)
+    return AI85Net_DCT4_TORCHAUDIO(**kwargs)
 
 models = [
     {
         'name': 'ai85net_dct4',
-        'min_input': 512,
+        'min_input': 128,
         'dim': 1,
     },
 ]
+

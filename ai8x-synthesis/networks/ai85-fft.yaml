@@ -1,0 +1,23 @@
+arch: ai85net_fft
+dataset: fft
+
+# Define layer parameters in order of the layer sequence
+layers:
+  # ai8x.Linear(1 * length, 4 * length)
+  - data_format: CHW
+    op: Linear
+    activate: None
+    processors: 0x000000000000ffff
+    out_offset: 0x0000
+
+  # ai8x.Linear(4 * length, 4 * length)
+  - op: Linear
+    activate: None
+    processors: 0xffffffffffffffff
+    out_offset: 0x2000
+
+  # ai8x.Linear(4 * length, 2 * length)
+  - op: Linear
+    activate: None
+    processors: 0xffffffffffffffff
+    out_offset: 0x0000

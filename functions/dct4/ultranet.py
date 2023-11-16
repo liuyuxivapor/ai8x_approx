@@ -6,17 +6,17 @@ class ultranet(nn.Module):
         super(ultranet, self).__init__()
         
         self.layers = nn.Sequential(
-            nn.Conv1d(1, 8, kernel_size=3, stride=1, padding=1, bias=False),
-            nn.BatchNorm1d(8),
-            nn.ReLU(),
-
-            nn.Conv1d(8, 16, kernel_size=3, stride=1, padding=1, bias=False),
+            nn.Conv1d(1, 16, kernel_size=3, stride=1, padding=1, bias=False),
             nn.BatchNorm1d(16),
             nn.ReLU(),
 
-#             nn.Conv1d(32, 64, kernel_size=3, stride=1, padding=1, bias=False),
-#             nn.BatchNorm1d(64),
-#             nn.ReLU(),
+            nn.Conv1d(16, 32, kernel_size=3, stride=1, padding=1, bias=False),
+            nn.BatchNorm1d(32),
+            nn.ReLU(),
+
+            nn.Conv1d(32, 64, kernel_size=3, stride=1, padding=1, bias=False),
+            nn.BatchNorm1d(64),
+            nn.ReLU(),
 
 #             nn.Conv1d(64, 64, kernel_size=3, stride=1, padding=1, bias=False),
 #             nn.BatchNorm1d(64),
@@ -34,10 +34,10 @@ class ultranet(nn.Module):
 #             nn.BatchNorm1d(64),
 #             nn.ReLU(),
 
-            nn.Conv1d(16, 8, kernel_size=1, stride=1, padding=0, bias=False),
+            nn.Conv1d(64, 2, kernel_size=1, stride=1, padding=0, bias=False),
             
             nn.Flatten(),
-            nn.Linear(512 * 8, 512)
+            nn.Linear(128 * 2, 128)
             
         )
 
