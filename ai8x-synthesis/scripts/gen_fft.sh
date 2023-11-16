@@ -1,6 +1,6 @@
 #!/bin/sh
 DEVICE="MAX78000"
-TARGET="demos/fft"
+TARGET="demos"
 COMMON_ARGS="--device $DEVICE --timer 0 --compact-data --verbose"
 OVER_WRITE="--overwrite"
 # SOFTMAX="--softmax"

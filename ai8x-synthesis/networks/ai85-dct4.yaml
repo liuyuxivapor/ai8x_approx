@@ -2,38 +2,47 @@ arch: ai85net_dct4
 dataset: dct4
 
 # Define layer parameters in order of the layer sequence
-layers:
-  # ai8x.FusedConv1dBNReLU(1, 8, kernel_size=3, stride=1, padding=1, bias=True, batchnorm='Affine')
+layers: 
+  # Layer 0: ai8x.FusedConv1dBNReLU(1, 16, kernel_size=3, stride=1, padding=1, bias=True, batchnorm='Affine')
   - data_format: CHW
     op: Conv1d
     pad: 1
     activate: ReLU
     kernel_size: 3
     stride: 1
-    processors: 0x0000000000000001
+    processors: 0x0000_0000_0000_0001
     out_offset: 0x0000
 
-  # ai8x.FusedConv1dBNReLU(8, 16, kernel_size=3, stride=1, padding=1, bias=True, batchnorm='Affine')
+  # Layer 1: ai8x.FusedConv1dBNReLU(16, 32, kernel_size=3, stride=1, padding=1, bias=True, batchnorm='Affine')
   - op: Conv1d
     pad: 1
     activate: ReLU
     kernel_size: 3
     stride: 1
-    processors: 0x0000000000000ff0
+    processors: 0x0000_0000_0000_ffff
     out_offset: 0x2000
 
-  # ai8x.FusedConv1dBNReLU(16, 2, kernel_size=3, stride=1, padding=1, bias=True, batchnorm='Affine')
+  # Layer 2: ai8x.FusedConv1dBNReLU(32, 64, kernel_size=3, stride=1, padding=1, bias=True, batchnorm='Affine')
   - op: Conv1d
     pad: 1
     activate: ReLU
     kernel_size: 3
     stride: 1
-    processors: 0x000000000ffff000
+    processors: 0x0000_ffff_ffff_0000
     out_offset: 0x0000
 
-  # Flatten & ai8x.Linear(512 * 2, 512)
+  # Layer 3: ai8x.FusedConv1dBNReLU(64, 2, kernel_size=3, stride=1, padding=1, bias=True, batchnorm='Affine')
+  - op: Conv1d
+    pad: 1
+    activate: ReLU
+    kernel_size: 3
+    stride: 1
+    processors: 0xffff_ffff_ffff_ffff
+    out_offset: 0x2000
+
+  # Layer 4: Flatten & ai8x.Linear(128 * 2, 128)
   - op: Linear
     flatten: True
     activate: None
-    processors: 0xffffffffffffffff
-    out_offset: 0x2000
+    processors: 0x0000_0000_0000_0011
+    out_offset: 0x0000

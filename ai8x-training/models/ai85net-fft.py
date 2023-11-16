@@ -8,12 +8,13 @@ class AI85Net_FFT(nn.Module):
         super().__init__()
         
         length = 64
-
+    
         self.linear1 = ai8x.Linear(1 * length, 4 * length)
         self.linear2 = ai8x.Linear(4 * length, 4 * length)
         self.linear3 = ai8x.Linear(4 * length, 2 * length)
             
     def forward(self, x):
+        # x = nn.Flatten(x)
         x = self.linear1(x)
         x = self.linear2(x)
         x = self.linear3(x)

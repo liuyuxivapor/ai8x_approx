@@ -2,8 +2,8 @@ import torch
 import math
 import numpy as np
 
-batch = 32
-test_size = 16
+batch = 64
+test_size = 32
 len = 128
 
 def dct4(input_signal):

@@ -66,8 +66,8 @@ def dct_get_datasets(data, load_train=True, load_test=True):
 datasets = [
     {
         'name': 'dct4',
-        'input': (1, 512),
-        'output': (1, 512),
+        'input': (1, 128),
+        'output': (1, 128),
         'loader': dct_get_datasets,
     },
 ]

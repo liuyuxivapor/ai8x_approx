@@ -1,5 +1,0 @@
-ai8xize.py --test-dir demos/dct4 --prefix ai85net_dct4 --checkpoint-file trained/ai85-dct4-qat8-q.pth.tar --config-file networks/ai85-dct4.yaml --device MAX78000 --timer 0 --compact-data --verbose --overwrite
-MAX78000
-
-ai85net_dct4
-ERROR: Layer 2: 2 output channels using 1 pass (2 processors per pass), but the processor output map 0xffffffffffffffff has 64 bits instead of the expected number of 2.

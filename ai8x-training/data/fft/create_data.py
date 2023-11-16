@@ -13,19 +13,19 @@ batch_size = 128
 test_size = 64
 len = 64
 
-data_train = torch.randn(batch_size, len, dtype=torch.float32)
-data_test = torch.randn(test_size, len, dtype=torch.float32)
+data_train = torch.randn(batch_size, 1, len, dtype=torch.float32)
+data_test = torch.randn(test_size, 1, len, dtype=torch.float32)
 
 def gen_data(inputs, batch, length):
     tmp1 = torch.zeros(batch, length, dtype=torch.float32)
     tmp2 = torch.zeros(batch, length, dtype=torch.float32)
-    outputs = torch.zeros(batch, 2 * length, dtype=torch.float32)
+    outputs = torch.zeros(batch, 1, 2 * length, dtype=torch.float32)
     
     for i in range(batch):
         fft_result = torch.fft.fftn(inputs[i])
         tmp1[i] = torch.real(fft_result)
         tmp2[i] = torch.imag(fft_result)
-        outputs[i] = torch.cat((tmp1[i], tmp2[i]), dim=0)
+        outputs[i, 0, :] = torch.cat((tmp1[i], tmp2[i]), dim=0)
         
     return outputs
 

@@ -35,7 +35,7 @@ TORCHAUDIO_SQUEEZER = 14
 #         return x
 
 class AI85Net_DCT4(nn.Module):
-    def __init__(self, num_channels=1, length=512, **kwargs):
+    def __init__(self, num_channels=1, length=128, **kwargs):
         super().__init__()
     
         self.conv1bn = ai8x.FusedConv1dBNReLU(1, 16, kernel_size=3, stride=1, padding=1, bias=True, batchnorm='Affine')
@@ -78,7 +78,7 @@ class AI85Net_DCT4_TORCHAUDIO(nn.Module):
     
 def ai85net_dct4(pretrained=False, **kwargs):
     assert not pretrained
-    return AI85Net_DCT4_TORCHAUDIO(**kwargs)
+    return AI85Net_DCT4(**kwargs)
 
 models = [
     {

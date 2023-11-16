@@ -1,24 +1,29 @@
 import numpy as np
+import torch
 from scipy.interpolate import CubicSpline
-# from d2l import torch as d2l
 import matplotlib.pyplot as plt
 
-# Sample data
-x = np.array([1, 2, 3, 4, 5])
-y = np.array([2, 1, 4, 3, 5])
+LOW = 1
+HIGH = 128
+LEN = 16
+Q_LEN = 32
 
-# Generate points for plotting the interpolated curve
-x_interp = np.random(min(x), max(x), 5)
+x = torch.randint(LOW, HIGH, size=(LEN,), dtype=torch.float32)
+x = torch.sort(x).values
+y = torch.randint(LOW, HIGH, size=(LEN,), dtype=torch.int32)
+y = torch.sort(y).values
+print(x, y)
+
+xq = torch.randint(min(x), max(x), size=(Q_LEN,), dtype=torch.int32)
+x1 = torch.sort(xq).values
 cs = CubicSpline(x, y)
-y_interp = cs(y)
+yq = cs(y)
+# print(xq, yq)
 
-print(x_interp)
-
-# Plot the original data and the cubic spline interpolation
-plt.scatter(x, y, label='Data Points')
-plt.plot(x_interp, y_interp, label='Cubic Spline Interpolation', color='red')
-plt.legend()
-plt.xlabel('X-axis')
-plt.ylabel('Y-axis')
+plt.plot(x, y, 'o', label='Data points')
+plt.plot(xq, yq, label='Cubic Spline Interpolation')
 plt.title('Cubic Spline Interpolation')
+plt.xlabel('x')
+plt.ylabel('y')
+plt.legend()
 plt.show()

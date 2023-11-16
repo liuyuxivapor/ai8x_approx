@@ -6,13 +6,13 @@ Approximate computing of at least five certain signal processing such as FFT and
 
 ## Logs & Todo
 
-| **Signal**          | **Pytorch** | **Ai8x** | **CMSIS-DSP** | **DSP** | **Evaluation** | **DVFS(?)** |
-|:-------------------:|:-----------:|:--------:|:-------------:|:-------:|:--------------:|:-----------:|
-| Fingerprint recognition | /           | ⚪        | /             | /       | ⚪              |  /
-| FFT                 | ⚪           |2023.11.16-111104          | ⚪             | ⚪       |               |             |
-| FIR                 | ⚪           |          | ⚪             | ⚪       |                |             |
-| DCT                 | ⚪           |2023.11.15-183157       |              |         |                |             |
-| Cubic Spline  |             |          |               |         |                |             |
+| Signal                  | Pytorch | Ai8x              | Evaluation        | CMSIS-DSP | DSP(?) | DVFS(?) |
+|:-----------------------:|:-------:|:-----------------:|:-----------------:|:---------:|:------:|:-------:|
+| Fingerprint recognition | /       | ⚪                 | ⚪                 | /         | /      | /       |
+| FFT                     | ⚪       | 2023.11.16-111104 |                   | ⚪         |        |         |
+| FIR                     | ⚪       |                   |                   | ⚪         |        |         |
+| DCT                     | ⚪       | 2023.11.17-043237 | 2023.11.17-043751 | ⚪         |        |         |
+| Cubic Spline            |         |                   |                   |           |        |         |
 
 ## Ref Links
 
