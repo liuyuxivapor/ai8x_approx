@@ -44,7 +44,7 @@ class AI85Net_DCT4(nn.Module):
         
         self.conv3bn = ai8x.FusedConv1dBNReLU(32, 64, kernel_size=3, stride=1, padding=1, bias=True, batchnorm='Affine')
 
-        self.conv4bn = ai8x.FusedConv1dBNReLU(64, 2, kernel_size=3, stride=1, padding=1, bias=True, batchnorm='Affine')
+        self.conv4bn = ai8x.FusedConv1dBNReLU(64, 1, kernel_size=3, stride=1, padding=1, bias=True, batchnorm='Affine')
                 
         self.flat = nn.Flatten()
         self.fc = ai8x.Linear(128 * 2, 128)
@@ -59,7 +59,7 @@ class AI85Net_DCT4(nn.Module):
         x = self.conv2bn(x)
         x = self.conv3bn(x)
         x = self.conv4bn(x)
-        x = self.fc(self.flat(x))
+        # x = self.fc(self.flat(x))
         # x = self.fc(x)
         
         return x

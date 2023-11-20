@@ -11,8 +11,9 @@ Approximate computing of at least five certain signal processing such as FFT and
 | Fingerprint recognition | /       | ⚪                 | ⚪                 | /         | /      | /       |
 | FFT                     | ⚪       | 2023.11.16-111104 |                   | ⚪         |        |         |
 | FIR                     | ⚪       |                   |                   | ⚪         |        |         |
-| DCT                     | ⚪       | 2023.11.17-043237 | 2023.11.17-043751 | ⚪         |        |         |
-| Cubic Spline            |         |                   |                   |           |        |         |
+| DCT                     | ⚪       | 2023.11.20-100437 | 2023.11.20-102758 | ⚪         |        |         |
+| Cubic Spline            |         |                   |                   | ⚪          |        |         |
+| Equalizer               |         |                   |                   |           |        |         |
 
 ## Ref Links
 

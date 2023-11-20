@@ -1,0 +1,40 @@
+2023-11-20 10:27:58,558 - Log file for this run: /home/vapor/code/AIoT/ai8x-training/logs/2023.11.20-102758/2023.11.20-102758.log
+2023-11-20 10:28:03,933 - => loading checkpoint ../ai8x-synthesis/trained/ai85-dct4-qat8-q.pth.tar
+2023-11-20 10:28:03,936 - => Checkpoint contents:
++----------------------+-------------+--------------+
+| Key                  | Type        | Value        |
+|----------------------+-------------+--------------|
+| arch                 | str         | ai85net_dct4 |
+| compression_sched    | dict        |              |
+| epoch                | int         | 191          |
+| extras               | dict        |              |
+| optimizer_state_dict | dict        |              |
+| optimizer_type       | type        | Adam         |
+| state_dict           | OrderedDict |              |
++----------------------+-------------+--------------+
+
+2023-11-20 10:28:03,937 - => Checkpoint['extras'] contents:
++-----------------+--------+---------------+
+| Key             | Type   | Value         |
+|-----------------+--------+---------------|
+| best_epoch      | int    | 191           |
+| best_mAP        | int    | 0             |
+| best_top1       | Tensor |               |
+| clipping_method | str    | MAX_BIT_SHIFT |
+| current_mAP     | int    | 0             |
+| current_top1    | Tensor |               |
++-----------------+--------+---------------+
+
+2023-11-20 10:28:03,937 - Loaded compression schedule from checkpoint (epoch 191)
+2023-11-20 10:28:03,940 - => loaded 'state_dict' from checkpoint '../ai8x-synthesis/trained/ai85-dct4-qat8-q.pth.tar'
+2023-11-20 10:28:03,945 - Optimizer Type: <class 'torch.optim.sgd.SGD'>
+2023-11-20 10:28:03,945 - Optimizer Args: {'lr': 0.1, 'momentum': 0.9, 'dampening': 0, 'weight_decay': 0.0001, 'nesterov': False}
+2023-11-20 10:28:03,946 - Dataset sizes:
+	test=32
+2023-11-20 10:28:03,946 - --- test ---------------------
+2023-11-20 10:28:03,946 - 32 samples (16 per mini-batch)
+2023-11-20 10:28:04,857 - Test: [    2/    2]    Loss 0.000063    MSE 0.000063    
+2023-11-20 10:28:04,883 - ==> MSE: 0.00006    Loss: 0.000
+
+2023-11-20 10:28:04,885 - 
+2023-11-20 10:28:04,885 - Log file for this run: /home/vapor/code/AIoT/ai8x-training/logs/2023.11.20-102758/2023.11.20-102758.log

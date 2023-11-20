@@ -11,7 +11,7 @@ layers:
     kernel_size: 3
     stride: 1
     processors: 0x0000_0000_0000_0001
-    out_offset: 0x0000
+    out_offset: 0x2000
 
   # Layer 1: ai8x.FusedConv1dBNReLU(16, 32, kernel_size=3, stride=1, padding=1, bias=True, batchnorm='Affine')
   - op: Conv1d
@@ -20,7 +20,7 @@ layers:
     kernel_size: 3
     stride: 1
     processors: 0x0000_0000_0000_ffff
-    out_offset: 0x2000
+    out_offset: 0x0000
 
   # Layer 2: ai8x.FusedConv1dBNReLU(32, 64, kernel_size=3, stride=1, padding=1, bias=True, batchnorm='Affine')
   - op: Conv1d
@@ -29,20 +29,21 @@ layers:
     kernel_size: 3
     stride: 1
     processors: 0x0000_ffff_ffff_0000
-    out_offset: 0x0000
+    out_offset: 0x2000
 
-  # Layer 3: ai8x.FusedConv1dBNReLU(64, 2, kernel_size=3, stride=1, padding=1, bias=True, batchnorm='Affine')
+  # Layer 3: ai8x.FusedConv1dBNReLU(64, 1, kernel_size=3, stride=1, padding=1, bias=True, batchnorm='Affine')
   - op: Conv1d
     pad: 1
     activate: ReLU
     kernel_size: 3
     stride: 1
     processors: 0xffff_ffff_ffff_ffff
-    out_offset: 0x2000
-
-  # Layer 4: Flatten & ai8x.Linear(128 * 2, 128)
-  - op: Linear
-    flatten: True
-    activate: None
-    processors: 0x0000_0000_0000_0011
     out_offset: 0x0000
+    output_processors: 0x0000_0000_0000_0001
+
+  # # Layer 4: Flatten & ai8x.Linear(128 * 2, 128)
+  # - op: Linear
+  #   flatten: True
+  #   activate: None
+  #   processors: 0x0000_0000_0000_1100
+  #   out_offset: 0x2000

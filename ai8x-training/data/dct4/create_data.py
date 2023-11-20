@@ -10,14 +10,14 @@ def dct4(input_signal):
     
     batch = input_signal.size(dim=0)
     len = input_signal.size(dim=2)
-    output_signal = torch.zeros(batch, len)
+    output_signal = torch.zeros(batch, 1, len)
 
     for i in range(batch):
         for k in range(len):
             sum_value = 0.0
             for n in range(len):
                 sum_value += input_signal[i, 0, n] * math.cos((math.pi / len) * (n + 0.5) * (k + 0.5))
-            output_signal[i, k] = sum_value * 0.125
+            output_signal[i, 0, k] = sum_value * 0.125
 
     return output_signal
 
