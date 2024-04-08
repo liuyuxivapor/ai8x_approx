@@ -9,8 +9,6 @@
 /latest_log_file
 
 /logs/*
-!/logs/2023.11.20-100437
-!/logs/2023.11.20-102758
 
 /ninja-python-distributions
 /pip-selfcheck.json

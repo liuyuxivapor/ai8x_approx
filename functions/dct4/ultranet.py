@@ -18,26 +18,26 @@ class ultranet(nn.Module):
             nn.BatchNorm1d(64),
             nn.ReLU(),
 
-#             nn.Conv1d(64, 64, kernel_size=3, stride=1, padding=1, bias=False),
-#             nn.BatchNorm1d(64),
-#             nn.ReLU(),
+            nn.Conv1d(64, 64, kernel_size=3, stride=1, padding=1, bias=False),
+            nn.BatchNorm1d(64),
+            nn.ReLU(),
+
+            nn.Conv1d(64, 64, kernel_size=3, stride=1, padding=1, bias=False),
+            nn.BatchNorm1d(64),
+            nn.ReLU(),
+
+            nn.Conv1d(64, 64, kernel_size=3, stride=1, padding=1, bias=False),
+            nn.BatchNorm1d(64),
+            nn.ReLU(),
 
 #             nn.Conv1d(64, 64, kernel_size=3, stride=1, padding=1, bias=False),
 #             nn.BatchNorm1d(64),
 #             nn.ReLU(),
 
-#             nn.Conv1d(64, 64, kernel_size=3, stride=1, padding=1, bias=False),
-#             nn.BatchNorm1d(64),
-#             nn.ReLU(),
-
-#             nn.Conv1d(64, 64, kernel_size=3, stride=1, padding=1, bias=False),
-#             nn.BatchNorm1d(64),
-#             nn.ReLU(),
-
-            nn.Conv1d(64, 2, kernel_size=1, stride=1, padding=0, bias=False),
+            nn.Conv1d(64, 1, kernel_size=1, stride=1, padding=0, bias=False),
             
-            nn.Flatten(),
-            nn.Linear(128 * 2, 128)
+            # nn.Flatten(),
+            # nn.Linear(128 * 2, 128)
             
         )
 

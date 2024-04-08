@@ -3,22 +3,30 @@ dataset: fft
 
 # Define layer parameters in order of the layer sequence
 layers:
-  # ai8x.Linear(1 * length, 4 * length)
+  # ai8x.FusedLinearReLU(1, 8)
   - data_format: CHW
     op: Linear
-    # flatten: True
-    activate: None
-    processors: 0xffffffffffffffff
+    activate: ReLU
+    processors: 0x0000_0000_0000_0001
     out_offset: 0x2000
+    output_processors: 0x0000_0000_0000_00ff
 
-  # ai8x.Linear(4 * length, 4 * length)
+  # ai8x.FusedLinearReLU(8, 8)
   - op: Linear
-    activate: None
-    processors: 0xffffffffffffffff
+    activate: ReLU
+    processors: 0x0000_0000_0000_00ff
     out_offset: 0x0000
 
-  # ai8x.Linear(4 * length, 2 * length)
+  # ai8x.FusedLinearReLU(8, 64)
+  - op: Linear
+    activate: ReLU
+    processors: 0x0000_0000_0000_00ff
+    out_offset: 0x2000
+    output_processors: 0xffff_ffff_ffff_ffff
+
+  # ai8x.Linear(64, 2)
   - op: Linear
     activate: None
-    processors: 0xffffffffffffffff
-    out_offset: 0x2000
+    processors: 0xffff_ffff_ffff_ffff
+    out_offset: 0x0000
+    output_processors: 0x0000_0000_0000_0011

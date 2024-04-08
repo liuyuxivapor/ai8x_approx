@@ -183,8 +183,11 @@ def main():
     if np.max(data) > 127 or np.min(data) < -128:
         eprint(f'Input data {sampledata_file} contains values that are outside the limits of '
                f'signed 8-bit (data min={np.min(data)}, max={np.max(data)})!')
-    # Work with 1D input data
-    if data.ndim < 3:
+    # Work with 1D and 2D input data
+    if data.ndim == 1:
+        data = np.expand_dims(data, axis=1)
+        data = np.expand_dims(data, axis=2)
+    elif data.ndim == 2:
         data = np.expand_dims(data, axis=2)
 
     if params['data_buffer_cfg'] is not None:

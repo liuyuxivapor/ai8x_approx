@@ -3,8 +3,6 @@ import torch.nn as nn
 import ai8x
 from torchaudio.functional import create_dct
 
-TORCHAUDIO_SQUEEZER = 14
-
 # class AI85Net_DCT4(nn.Module):
 #     def __init__(self, num_channels=1, length=512, bias=False, **kwargs):
 #         super().__init__()
@@ -34,7 +32,7 @@ TORCHAUDIO_SQUEEZER = 14
         
 #         return x
 
-class AI85Net_DCT4(nn.Module):
+class AI85Net_DCT4_CNN(nn.Module):
     def __init__(self, num_channels=1, length=128, **kwargs):
         super().__init__()
     
@@ -44,10 +42,11 @@ class AI85Net_DCT4(nn.Module):
         
         self.conv3bn = ai8x.FusedConv1dBNReLU(32, 64, kernel_size=3, stride=1, padding=1, bias=True, batchnorm='Affine')
 
-        self.conv4bn = ai8x.FusedConv1dBNReLU(64, 1, kernel_size=3, stride=1, padding=1, bias=True, batchnorm='Affine')
+        # self.conv4bn = ai8x.FusedConv1dBNReLU(64, 2, kernel_size=3, stride=1, padding=1, bias=True, batchnorm='Affine')
+        self.conv4bn = ai8x.Conv1d(64, 1, kernel_size=3, stride=1, padding=1, bias=True, batchnorm='Affine')
                 
         self.flat = nn.Flatten()
-        self.fc = ai8x.Linear(128 * 2, 128)
+        self.fc = ai8x.Linear(128, 128)
 
         # for m in self.modules():
         #     if isinstance(m, nn.Conv1d):
@@ -60,7 +59,6 @@ class AI85Net_DCT4(nn.Module):
         x = self.conv3bn(x)
         x = self.conv4bn(x)
         # x = self.fc(self.flat(x))
-        # x = self.fc(x)
         
         return x
     
@@ -71,10 +69,26 @@ class AI85Net_DCT4_TORCHAUDIO(nn.Module):
         self.dct = ai8x.FusedConv1dAbs(128, 128, 1, stride=1, padding=0, bias=False, **kwargs)
         dct_coefs = create_dct(n_mfcc=128, n_mels=128, norm=None)
         with torch.no_grad():
-            self.dct.op.weight = nn.Parameter(dct_coefs.transpose(0,1)[0:128,:].unsqueeze(2)/TORCHAUDIO_SQUEEZER, requires_grad=False)
+            self.dct.op.weight = nn.Parameter(dct_coefs.transpose(0,1)[0:128,:].unsqueeze(2)/14, requires_grad=False)
 
     def forward(self, x):
         return self.dct(x)
+    
+class AI85Net_DCT4(nn.Module):
+    def __init__(self, bias=True, **kwargs):
+        super().__init__()
+
+        self.fc1 = ai8x.FusedLinearReLU(1, 4)
+        self.fc2 = ai8x.FusedLinearReLU(4, 2)
+        self.fc3 = ai8x.FusedLinearReLU(2, 4)
+        self.fc4 = ai8x.Linear(4, 1)
+            
+    def forward(self, x):
+        x = self.fc1(x)
+        x = self.fc2(x)
+        x = self.fc3(x)
+        x = self.fc4(x)
+        return x
     
 def ai85net_dct4(pretrained=False, **kwargs):
     assert not pretrained
@@ -83,7 +97,7 @@ def ai85net_dct4(pretrained=False, **kwargs):
 models = [
     {
         'name': 'ai85net_dct4',
-        'min_input': 128,
+        'min_input': 1,
         'dim': 1,
     },
 ]

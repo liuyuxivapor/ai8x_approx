@@ -6,6 +6,8 @@ batch = 64
 test_size = 32
 len = 128
 
+scale = 4
+
 def dct4(input_signal):
     
     batch = input_signal.size(dim=0)
@@ -21,8 +23,8 @@ def dct4(input_signal):
 
     return output_signal
 
-data_train = torch.randn(batch, 1, len, dtype=torch.float32)
-data_test = torch.randn(test_size, 1, len, dtype=torch.float32)
+data_train = torch.randn(batch, 1, len, dtype=torch.float32) * scale
+data_test = torch.randn(test_size, 1, len, dtype=torch.float32) * scale
 label_train = dct4(data_train)
 label_test = dct4(data_test)
 
@@ -34,7 +36,7 @@ np.save('label_test.npy', label_test)
 # import matplotlib.pyplot as plt
 
 # # Assuming label_train is a torch tensor
-# label_train_np = label_train.numpy()
+# label_train_np = data_train.numpy()
 
 # # Flatten the tensor to 1D array
 # label_train_flattened = label_train_np.flatten()

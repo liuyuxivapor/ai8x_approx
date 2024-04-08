@@ -63,8 +63,8 @@ def fft_get_datasets(data, load_train=True, load_test=True):
 datasets = [
     {
         'name': 'fft',
-        'input': (1, 64),
-        'output': (1, 128),
+        'input': (1, 1),
+        'output': (1, 2),
         'loader': fft_get_datasets,
     },
 ]

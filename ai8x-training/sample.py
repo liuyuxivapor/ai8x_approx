@@ -37,3 +37,4 @@ def generate(
     np.save(sample_name, x, allow_pickle=False, fix_imports=False)
 
     return False
+
